@@ -1,7 +1,10 @@
 from random import randrange
 
+import math
+import numpy
+
 class CITest(object):
-  average_test_time = 5
+  average_test_time = 1
   test_flake_rate = 0.001
 
   def __init__(self, env, build_tracker, name, ci_worker):
@@ -15,7 +18,7 @@ class CITest(object):
   def run(self):
     with self.ci_worker.request() as req:
       yield req
-      yield self.env.timeout(self.average_test_time)
+      yield self.env.timeout(max(0, numpy.random.normal(self.average_test_time, 0.5)))
 
       if self.coin_flip(self.test_flake_rate):
         self.build_tracker.passed()

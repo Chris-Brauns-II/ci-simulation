@@ -2,7 +2,7 @@ from ci_build import CIBuild
 import simpy
 
 f = open("data.csv", "w")
-f.write("Pass Rate,Wall Clock Time\n")
+f.write("Pass Rate,Rebases,Wall Clock Time\n")
 f.close()
 
 def run_sim():
@@ -13,8 +13,6 @@ def run_sim():
     build.run()
 
     env.run()
-    # print(env.now)
-    pass
     build.stats(env.now)
 
 run_sim()
